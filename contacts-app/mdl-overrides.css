@@ -1,0 +1,125 @@
+.mdl-grid.centered {
+    justify-content: center;
+}
+
+.mdl-cell {
+    max-width: 960px;
+    padding: 0 4vw;
+}
+
+h1 {
+    margin-top: 4vw;
+    font-size: 3.3em !important;
+    padding-left: 0.5em;
+    border-left: 0.4em solid #3e2723;
+}
+
+.mdl-textfield {
+    margin: 0.2em 4em 0.2em 0;
+}
+
+.mdl-textfield__input {
+    font-size: 1.2em;
+    padding: 0.5em 0 0.5em 0.3em;
+    border-bottom: 2px solid #757575;
+}
+
+.mdl-textfield__input:focus {
+    background-color: #3e2723;
+}
+
+.mdl-textfield--floating-label.is-focused .mdl-textfield__label, .mdl-textfield--floating-label.is-dirty .mdl-textfield__label, .mdl-textfield--floating-label.has-placeholder .mdl-textfield__label{
+    font-size: 1.2em;
+    top: -0.7em;
+}
+.mdl-textfield__label {
+    font-size: 1.2em;
+    top: 1.3em;
+    padding: 0.3em 0 0.3em 0.3em;
+}
+
+.mdl-button--flat {
+    padding: 1.5em 3em;
+    line-height: 0;
+    font-size: 1.5em;
+    text-transform: none;
+    border-radius: 10px;
+    border: 2px solid #c6ff00;
+}
+
+button.delete {
+    position: absolute;
+    top: -1.55em;
+    right: 5px;
+    font-size: 1em;
+    display: block;
+    width: 7em;
+    height: 1.5em;
+    line-height: 0;
+    margin: 0;
+    padding: 0.21em 0.25em;
+    border: 0 none;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    background-color: #c6ff00;
+    color: #111 !important;
+}
+
+table {
+    margin-bottom: 4vw;
+    border: 0 none !important;
+    border-collapse: separate !important;
+}
+
+th, td {
+    font-size: 1.4em !important;
+    border: 0 none;
+    border-right: 1px solid #718800;
+    padding: 0;
+}
+
+th {
+    border-bottom: 1px solid #718800;
+    background-color: #333 !important;
+}
+
+td {
+    cursor: pointer;
+    position: relative;
+}
+
+th:last-child, td:last-child {
+    border-right: 0 none;
+}
+
+.mdl-data-table tr {
+    background-color: #282828 !important;
+}
+
+.mdl-data-table tr:nth-child(2n+1) {
+    background-color: #212121 !important;
+}
+
+.mdl-data-table tr.highlight {
+    background-color: #242 !important;
+}
+
+td input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0.21em 1em;
+    border: 0 none;
+    font-size: 1em;
+    background-color: #362;
+    color: #c6ff00;
+}
+
+td input:focus{
+    outline: none;
+}
