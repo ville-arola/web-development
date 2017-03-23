@@ -45,6 +45,11 @@ h1 {
     text-transform: none;
     border-radius: 10px;
     border: 2px solid #c6ff00;
+    transition: all 300ms ease-out;
+}
+
+.mdl-button--flat:hover {
+    background-color: #718800 !important;
 }
 
 button.delete {
@@ -100,7 +105,7 @@ th:last-child, td:last-child {
     background-color: #212121 !important;
 }
 
-.mdl-data-table tr.highlight {
+.mdl-data-table tr:hover {
     background-color: #242 !important;
 }
 
