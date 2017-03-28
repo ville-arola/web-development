@@ -7,7 +7,7 @@ namespace contacts_app.Services
     {
         List<Contact> FindAllContacts();
         Contact FindContactById(int id);
-        void SaveContact(Contact contact);
+        int SaveContact(Contact contact);
         void Remove(int id);
         void Update(Contact updatedContact);
     }

@@ -30,9 +30,9 @@ namespace contacts_app.Controllers
         }
 
         [HttpPost]
-        public void Post([FromBody] Contact contact)
+        public int Post([FromBody] Contact contact)
         {
-            _contactService.SaveContact(contact);
+            return _contactService.SaveContact(contact);
         }
 
         [HttpPut("{id}")]

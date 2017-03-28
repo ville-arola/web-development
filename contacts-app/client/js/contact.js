@@ -1,4 +1,4 @@
-contactsApp.contact = function(firstName, lastName, phone, streetAddress, city, id) {
+contactsApp.contact = function(firstName, lastName, phone, streetAddress, city) {
     if (!(firstName + lastName + phone + streetAddress + city).length) {
         return null;
     }
@@ -7,7 +7,6 @@ contactsApp.contact = function(firstName, lastName, phone, streetAddress, city, 
         lastName: lastName,
         phone: phone,
         streetAddress: streetAddress,
-        city: city,
-        id: id ? id : 0
+        city: city
     };
 }

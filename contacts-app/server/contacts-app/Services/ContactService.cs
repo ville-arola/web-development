@@ -11,8 +11,10 @@ namespace contacts_app.Services
         public ContactService()
         {
             _contacts = new List<Contact>();
+            /*
             _contacts.Add(new Contact(1, "Erkki", "Esimerkki", "1234567890", "Jokukatu 5", "Jokukaupunki"));
             _contacts.Add(new Contact(2, "Toinen", "Esimerkki", "237774757", "Jokutoinenkatu 7", "Jokumuukaupunki"));
+            */
         }
 
         public List<Contact> FindAllContacts()
@@ -30,9 +32,11 @@ namespace contacts_app.Services
             return _contacts.FindAll(contact => contact.FirstName.Equals(firstName));
         }
 
-        public void SaveContact(Contact contact)
+        public int SaveContact(Contact contact)
         {
-            _contacts.Add(new Contact(GetId(), contact.FirstName, contact.LastName, contact.Phone, contact.StreetAddress, contact.City));
+            int id = GetId();
+            _contacts.Add(new Contact(id, contact.FirstName, contact.LastName, contact.Phone, contact.StreetAddress, contact.City));
+            return id;
         }
 
         public void Remove(int id)

@@ -21,36 +21,38 @@ contactsApp.addContact = function(contact) {
     }
 }
 
-contactsApp.editContact = function(editedData) {
-    var originalContact = JSON.stringify(contactsApp.contacts[editedData.rowIndex]),
+contactsApp.editContact = function(target) {
+    var index = _.findIndex(contactsApp.contacts, function(c) { return c.id == target.id; });
+    var originalContact = JSON.stringify(contactsApp.contacts[index]),
         editedContact = JSON.parse(originalContact);
-    if (editedData.colIndex == 3) {
-        var values = editedData.newValue.split(',');
-        editedContact[Object.keys(editedContact)[3]] = values[0].trim();
-        editedContact[Object.keys(editedContact)[4]] = '';
+    if (target.field == 'address') {
+        var values = target.newValue.split(',');
+        editedContact.streetAddress = values[0].trim();
+        editedContact.city = '';
         if (values.length > 1) {
-            editedContact[Object.keys(editedContact)[4]] = values.slice(1).join('').trim();
+            editedContact.city = values.slice(1).join('').trim();
         }
     }
     else {
-        editedContact[Object.keys(editedContact)[editedData.colIndex]] = editedData.newValue;
+        editedContact[target.field] = target.newValue;
     }
     if (originalContact != JSON.stringify(editedContact)) {
-        function dataEdited(index, contact) {
-            contactsApp[index] = contact;
+        function dataEdited(contact, index) {
+            contactsApp.contacts[index] = contact;
             document.dispatchEvent(new Event('dataChanged'));
         }
-        contactsApp.server.updateContact(editedContact, editedData.rowIndex, dataEdited);
+        contactsApp.server.updateContact(editedContact, index, dataEdited);
 
     }
 }
 
-contactsApp.deleteContact = function(deletedData) {
-    if (deletedData.rowIndex >= 0 && deletedData.rowIndex < contactsApp.contacts.length) {
-        function dataDeleted(rowIndex) {
-            contactsApp.contacts.splice(rowIndex, 1);
+contactsApp.deleteContact = function(target) {
+    var index = _.findIndex(contactsApp.contacts, function(c) { return c.id == target.id; });
+    if (index >= 0) {
+        function dataDeleted(index) {
+            contactsApp.contacts.splice(index, 1);
             document.dispatchEvent(new Event('dataChanged'));
         }
-        contactsApp.server.deleteContact(indexData, dataDeleted);
+        contactsApp.server.deleteContact(target.id, index, dataDeleted);
     }
 }

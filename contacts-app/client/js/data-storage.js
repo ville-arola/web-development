@@ -59,6 +59,7 @@ contactsApp.server = (function() {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data, status, jqXHR) {
+                contact.id = JSON.parse(data);
                 callback(contact);
             },
             error: function (jqXHR, status) {
@@ -67,15 +68,15 @@ contactsApp.server = (function() {
         });
     }
 
-    function updateContact(contact, contactId, callback) {
+    function updateContact(contact, index, callback) {
         jQuery.ajax({
             type: "PUT",
-            url: apiBaseUrl + contactId,
+            url: apiBaseUrl + contact.id,
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(contact),
             dataType: "json",
-            success: function (data, status, jqXHR) {
-                callback(contactId, contact);
+            success: function() {
+                callback(contact, index);
             },
             error: function (jqXHR, status) {
                 // error handler
@@ -83,14 +84,14 @@ contactsApp.server = (function() {
         });
     }
 
-    function deleteContact(contactId, callback) {
+    function deleteContact(id, index, callback) {
         $.ajax({
             type: "DELETE",
-            url: apiBaseUrl + contactId,
+            url: apiBaseUrl + id,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            success: function (data, status, jqXHR) {
-                callback(contactId);
+            success: function() {
+                callback(index);
             },
             error: function (jqXHR, status) {
                 // error handler
