@@ -1,4 +1,5 @@
 contactsApp.eventBindins = (function() {
+    /*
     // local storage (load on page load, store on data change)
     if (contactsApp.dataStorage) {
         window.addEventListener('load', function () {
@@ -6,6 +7,11 @@ contactsApp.eventBindins = (function() {
         });
         document.addEventListener('dataChanged', contactsApp.dataStorage.storeContacts);
     }
+    */
+
+    window.addEventListener('load', function () {
+        contactsApp.loadContacts();
+    });
 
     // responding to UI interaction
     document.addEventListener('interactionComplete', function () {

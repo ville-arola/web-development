@@ -19,7 +19,7 @@ contactsApp.UI = (function() {
                     document.getElementById('firstName').value,
                     document.getElementById('lastName').value,
                     document.getElementById('phone').value,
-                    document.getElementById('address').value,
+                    document.getElementById('streetAddress').value,
                     document.getElementById('city').value
                 )
         }));
@@ -60,6 +60,21 @@ contactsApp.UI = (function() {
         document.dispatchEvent(new Event('interactionComplete'));
     });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     editField.addEventListener('change', function() {
         if (justDeleted) {
             return;
@@ -68,19 +83,43 @@ contactsApp.UI = (function() {
             detail: {
                 rowIndex: editedRowIndex,
                 colIndex: editedColIndex,
+                id: contactsRootElement.childNodes[editedRowIndex].getAttribute('data-id'),
                 newValue: editField.value
             }
         }));
         document.dispatchEvent(new Event('interactionComplete'));
     });
 
+
+
+
     deleteBtn.addEventListener('mousedown', function() {
         justDeleted = true;
         document.dispatchEvent(new CustomEvent('deleteContact', {
-            detail: editedRowIndex
+            detail: {
+                rowIndex: editedRowIndex,
+                id: contactsRootElement.childNodes[editedRowIndex].getAttribute('data-id')
+            }
         }));
         document.dispatchEvent(new Event('interactionComplete'));
     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // UI component management
 
@@ -117,10 +156,10 @@ contactsApp.UI = (function() {
     function drawContacts() {
         var rows = '';
         for (var i = 0; i < contactsApp.contacts.length; i++) {
-            rows += '<tr><td class="mdl-data-table__cell--non-numeric">' + contactsApp.contacts[i].firstName + '</td>' +
+            rows += '<tr data-id="' + contactsApp.contacts[i].id + '"><td class="mdl-data-table__cell--non-numeric">' + contactsApp.contacts[i].firstName + '</td>' +
                 '<td class="mdl-data-table__cell--non-numeric">' + contactsApp.contacts[i].lastName + '</td>' +
                 '<td class="mdl-data-table__cell--non-numeric">' + contactsApp.contacts[i].phone + '</td>' +
-                '<td class="mdl-data-table__cell--non-numeric">' + contactsApp.utilities.buildAddressLink(contactsApp.contacts[i].address, contactsApp.contacts[i].city) + '</td></tr>';
+                '<td class="mdl-data-table__cell--non-numeric">' + contactsApp.utilities.buildAddressLink(contactsApp.contacts[i].streetAddress, contactsApp.contacts[i].city) + '</td></tr>';
         }
         contactsRootElement.innerHTML = rows;
     }
