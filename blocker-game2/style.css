@@ -1,0 +1,58 @@
+body {
+    font-family: Arial, sans-serif;
+    color: #5af;
+    background-color: #012;
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 0;
+}
+main {
+    text-align: center;
+    position: relative;
+}
+h1 {
+    font-size: 3em;
+    margin: 0;
+}
+main > div {
+    margin-top: 5vh;
+    width: 1024px;
+    max-width: 100%;
+    position: fixed;
+    top: 0;
+    transition: all 0.3s ease;
+    vertical-align: middle;
+}
+.hidden {
+    transform: translate(0px, -1000px);
+    opacity: 0;
+    z-index: -2;
+}
+canvas {
+    width: 100%;
+    background-color: #000;
+}
+button {
+    background-color: #123;
+    color: #5af;
+    border: 2px solid #5af;
+    border-radius: 50%;
+    display: inline-block;
+    width: 64px;
+    height: 64px;
+    outline: none;
+}
+button:active {
+    background-color: #012;
+    border-color: #27c;
+}
+button.ctrl.up {
+}
+button.ctrl.down {
+}
+#startBtn {
+    width: 150px;
+    height: 150px;
+    font-size: 2em;
+    margin-top: 20vh;
+}

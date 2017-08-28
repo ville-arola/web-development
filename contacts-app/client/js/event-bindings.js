@@ -10,6 +10,8 @@ contactsApp.eventBindins = (function() {
     */
 
     window.addEventListener('load', function () {
+        // Täällä voisi tapahtua muutakin
+        // synkronointi ensin esim.
         contactsApp.loadContacts();
     });
 

@@ -1,0 +1,15 @@
+<app-contact-list [contacts]="contacts" (select)="contactSelected($event)"></app-contact-list>
+<div *ngIf="selectedContact">
+  Selected: {{selectedContact.firstName}}
+</div>
+
+<md-input-container>
+  <input mdInput [(ngModel)]="helloText" type="text" required
+         placeholder="Type something">
+</md-input-container>
+
+<button md-raised-button (click)="doSomething()">Click Me</button>
+<div>
+  helloText: {{helloText}}
+</div>
+

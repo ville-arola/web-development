@@ -1,11 +1,26 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContactsList>
+<contacts>
   <contact>
-    <Key>1</Key>
-    <FirstName>Ville</FirstName>
-    <LastName>Arola</LastName>
-    <Phone>2397239467</Phone>
-    <StreetAddress>Jokukatu 4</StreetAddress>
-    <City>Jokukaupunki</City>
+    <id>1491087325143</id>
+    <firstName>tyftfy</firstName>
+    <lastName>iuhih</lastName>
+    <phone>ferrrge</phone>
+    <streetAddress></streetAddress>
+    <city></city>
   </contact>
-</ContactsList>
+  <contact>
+    <id>1491221411538</id>
+    <firstName>lsfjelji</firstName>
+    <lastName>elifjelji</lastName>
+    <phone></phone>
+    <streetAddress></streetAddress>
+    <city></city>
+  </contact>
+  <contact>
+    <id>1491222671459</id>
+    <firstName>tyfyfyfty</firstName>
+    <lastName>tyfyty</lastName>
+    <phone></phone>
+    <streetAddress></streetAddress>
+    <city></city>
+  </contact>
+</contacts>

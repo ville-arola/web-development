@@ -1,0 +1,22 @@
+body {
+    /*margin: 0;*/
+}
+
+main {
+
+}
+
+main > div {
+
+}
+
+canvas {
+    border: 1px solid #f00;
+}
+
+#game {
+}
+
+.hidden {
+    display: none;
+}

@@ -28,7 +28,7 @@ contactsApp.UI = (function() {
 
     contactsRootElement.addEventListener('click', function (event) {
         var target = /touch/.test(event.type) ? event.targetTouches[0] : event.target;
-        if (target.nodeName == 'TD') {
+        if (target.nodeName === 'TD') {
             document.dispatchEvent(new CustomEvent('interactionRequest', {
                 detail: {
                     rowIndex: target.parentNode.rowIndex - 1,
@@ -40,7 +40,7 @@ contactsApp.UI = (function() {
 
     contactsRootElement.addEventListener('click', function (event) {
         var target = /touch/.test(event.type) ? event.targetTouches[0] : event.target;
-        if (target.nodeName == 'A') {
+        if (target.nodeName === 'A') {
             if (event.ctrlKey) {
                 return true;
             }

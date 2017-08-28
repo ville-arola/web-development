@@ -1,58 +1,120 @@
-var contactsApp = {};
+var contactsApp = (function() {
+    var contacts = [];
 
-contactsApp.contacts = [];
-
-contactsApp.loadContacts = function() {
-    function dataLoaded(contacts){
-        contactsApp.contacts = contacts;
-        document.dispatchEvent(new Event('dataChanged'));
+    function getContactById(id) {
+        for (var i = contactsApp.contacts.length; i; i--) {
+            if (contactsApp.contacts[i-1].id == id) {
+                return {
+                    object: contactsApp.contacts[i-1],
+                    index: i-1
+                }
+            }
+        }
+        return null;
     }
-    contactsApp.server.getContacts(dataLoaded);
 
-}
-
-contactsApp.addContact = function(contact) {
-    if (contact) {
-        function dataAdded(contact) {
-            contactsApp.contacts.push(contact);
+    function loadContacts() {
+        function dataLoaded(contacts) {
+            contactsApp.contacts = contacts;
+            document.dispatchEvent(new Event('dataLoaded'));
             document.dispatchEvent(new Event('dataChanged'));
         }
-        contactsApp.server.addContact(contact, dataAdded);
+        contactsApp.server.getContacts(dataLoaded);
     }
-}
 
-contactsApp.editContact = function(target) {
-    var index = _.findIndex(contactsApp.contacts, function(c) { return c.id == target.id; });
-    var originalContact = JSON.stringify(contactsApp.contacts[index]),
-        editedContact = JSON.parse(originalContact);
-    if (target.field == 'address') {
-        var values = target.newValue.split(',');
-        editedContact.streetAddress = values[0].trim();
-        editedContact.city = '';
-        if (values.length > 1) {
-            editedContact.city = values.slice(1).join('').trim();
+    function addContact(contact) {
+        if (contact) {
+            function dataAdded(contact) {
+                contactsApp.contacts.push(contact);
+                document.dispatchEvent(new Event('dataChanged'));
+            }
+            contactsApp.server.addContact(contact, dataAdded);
         }
     }
-    else {
-        editedContact[target.field] = target.newValue;
+
+    function editContact(target) {
+        var index = _.findIndex(contactsApp.contacts, function (c) {
+            return c.id == target.id;
+        });
+        var originalContact = JSON.stringify(contactsApp.contacts[index]),
+            editedContact = JSON.parse(originalContact);
+        if (target.field == 'address') {
+            var values = target.newValue.split(',');
+            editedContact.streetAddress = values[0].trim();
+            editedContact.city = '';
+            if (values.length > 1) {
+                editedContact.city = values.slice(1).join('').trim();
+            }
+        }
+        else {
+            editedContact[target.field] = target.newValue;
+        }
+        if (originalContact != JSON.stringify(editedContact)) {
+            function dataEdited(contact, index, isOnServer) {
+                contactsApp.contacts[index] = contact;
+                if (!isOnServer) {
+                    document.dispatchEvent(new Event('synchronizeData'));
+                }
+                document.dispatchEvent(new Event('dataChanged'));
+            }
+            contactsApp.server.updateContact(editedContact, index, dataEdited);
+        }
     }
-    if (originalContact != JSON.stringify(editedContact)) {
-        function dataEdited(contact, index) {
-            contactsApp.contacts[index] = contact;
+
+    function deleteContact(target) {
+        var index = _.findIndex(contactsApp.contacts, function (c) {
+            return c.id == target.id;
+        });
+        if (index >= 0) {
+            function dataDeleted(index) {
+                contactsApp.contacts.splice(index, 1);
+                document.dispatchEvent(new Event('dataChanged'));
+            }
+            contactsApp.server.deleteContact(target.id, index, dataDeleted);
+        }
+    }
+
+    //
+
+    function syncAdded(contact) {
+        var exists = getContactById(contact.id);
+        if (!exists) {
+            contactsApp.contacts.push(contactsApp.contact(
+                contact.firstName,
+                contact.lastName,
+                contact.phone,
+                contact.streetAddress,
+                contact.city,
+                contact.id
+            ));
             document.dispatchEvent(new Event('dataChanged'));
         }
-        contactsApp.server.updateContact(editedContact, index, dataEdited);
-
     }
-}
 
-contactsApp.deleteContact = function(target) {
-    var index = _.findIndex(contactsApp.contacts, function(c) { return c.id == target.id; });
-    if (index >= 0) {
-        function dataDeleted(index) {
-            contactsApp.contacts.splice(index, 1);
+    function syncEdited(contact) {
+        var matching = getContactById(contact.id);
+        if (matching) {
+            contactsApp.contacts[matching.index] = contact;
             document.dispatchEvent(new Event('dataChanged'));
         }
-        contactsApp.server.deleteContact(target.id, index, dataDeleted);
     }
-}
+
+    function syncDeleted(id) {
+        var matching = getContactById(id);
+        if (matching) {
+            contactsApp.contacts.splice(matching.index, 1);
+            document.dispatchEvent(new Event('dataChanged'));
+        }
+    }
+
+    return {
+        contacts: contacts,
+        loadContacts: loadContacts,
+        addContact: addContact,
+        editContact: editContact,
+        deleteContact: deleteContact,
+        syncAdded: syncAdded,
+        syncEdited: syncEdited,
+        syncDeleted: syncDeleted
+    };
+})();

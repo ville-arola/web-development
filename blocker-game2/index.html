@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Blocker Game</title>
+        <link type="text/css" rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <main>
+            <div id="menu">
+                <!--<img src="images/game_logo.svg" alt="rocket"/>-->
+                <h1>Rocketry challenge</h1>
+                <button id="startBtn">Start Game</button>
+            </div>
+            <div id="game" class="hidden">
+                <canvas width="640" height="350" id="game_window"></canvas>
+                <button id="upBtn" class="ctrl up">Up</button>
+                <button id="downBtn" class="ctrl down">Down</button>
+            </div>
+        </main>
+        <script src="game.js"></script>
+    </body>
+</html>
